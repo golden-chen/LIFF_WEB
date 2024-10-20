@@ -18,7 +18,7 @@
 	</style>
 </head>
 
-<body>
+<body>  <button id="btntest" onclick="test()" style="display: none;margin: 20px auto;padding: 20px;">test</button>
 	<button id="btnShare" onclick="sendShare_Gift()" style="display: none;margin: 20px auto;padding: 20px;">Gift</button>
 	<button id="btnShare2" onclick="sendShare_Ladder()" style="display: none;margin: 20px auto;padding: 20px;">Ladder</button>
 	<button id="btnShare3" onclick="sendShare_Pay()" style="display: none;margin: 20px auto;padding: 20px;">Pay</button>
@@ -26,6 +26,21 @@
 	<button id="btnLogOut" onclick="logOut()" style="display: none;margin: 20px auto;padding: 20px;">Log Out</button>
 	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 	<script>
+		async function test() {
+			if (liff.isApiAvailable('shareTargetPicker')) {
+ 				 liff.shareTargetPicker([
+ 				   {
+ 				     type: "text",
+ 				     text: "Hello, World!"
+ 				   }
+ 				 ])
+  				  .then(
+   				   console.log("ShareTargetPicker was launched")
+   			 ).catch(function(res) {
+   			   console.log("Failed to launch ShareTargetPicker")
+  			  })
+			}
+		}
 		async function sendShare_Gift() {
 			name = await liff.getProfile().then((profile) => {
 				return profile.displayName;
@@ -449,6 +464,7 @@
 		async function main() {
 			await liff.init({ liffId: "2006470090-gx0jo3ZA" })
 			if (liff.isLoggedIn()) {
+				document.getElementById("btntest").style.display = "block"
 				document.getElementById("btnShare").style.display = "block"
 				document.getElementById("btnShare2").style.display = "block"
 				document.getElementById("btnShare3").style.display = "block"
